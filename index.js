@@ -1,5 +1,6 @@
 var express = require('express');
 var Charge = require('./lib/Charge.js');
+var User = require('./lib/User.js');
 
 var app = express();
 
@@ -38,6 +39,12 @@ app.post('/api/charge/save', function(req, res) {
         console.log("Callback called");
         res.send("Saved");
     });
+});
+
+app.get('/api/user/list', function(req, res) {
+    User.listUsers(function(err, data) {
+        res.json(data);
+    })
 });
 
 var port = process.env.PORT || 3000;
