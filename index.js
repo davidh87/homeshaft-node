@@ -12,8 +12,8 @@ app.get('/', function (req, res) {
 });
 
 app.get('/api/charge/list', function(req, res) {
-    var offset = req.params.offset;
-    var limit = req.params.limit;
+    var offset = parseInt(req.query.offset);
+    var limit = parseInt(req.query.limit);
 
     Charge.listCharges(offset, limit, function(err, charges) {
         console.log("Returning charges");
@@ -27,13 +27,14 @@ app.post('/api/charge/save', function(req, res) {
         from: req.body.from,
         to: req.body.to,
         amount: req.body.amount,
-        description: req.body.description
+        reason: req.body.reason
     }, function(err, result) {
         console.log("Callback called");
         res.send("Saved");
     });
 });
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
+    console.log('Example app listening on port !' + port);
 });
