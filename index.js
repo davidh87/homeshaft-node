@@ -11,6 +11,12 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
+app.get('/api/charge/totals', function(req, res) {
+    Charge.totals(function(err, data) {
+        res.json(data);
+    })
+});
+
 app.get('/api/charge/list', function(req, res) {
     var offset = parseInt(req.query.offset);
     var limit = parseInt(req.query.limit);
